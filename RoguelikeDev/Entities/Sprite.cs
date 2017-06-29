@@ -24,6 +24,8 @@ namespace RoguelikeDev.Entities
             GameBounds = gameBounds;
         }
 
+        ////////////////////////////////////
+
         public abstract void Load(ContentManager content, GameWindow window);
 
         public abstract void Update(GameTime gameTime);
@@ -32,6 +34,8 @@ namespace RoguelikeDev.Entities
         {
             spriteBatch.Draw(SpriteTexture, Location, Color.White);
         }
+
+        ////////////////////////////////////
 
         protected void LoadContent(Texture2D texture, Vector2 location)
         {
