@@ -29,7 +29,9 @@ namespace RoguelikeDev
         /// </summary>
         protected override void Initialize()
         {
-            _gameObjs = new List<IGameObject>();
+            _gameObjs = new List<IGameObject> {
+                new Player(Window.ClientBounds)
+            };
             base.Initialize();
         }
 
@@ -42,11 +44,10 @@ namespace RoguelikeDev
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            var playerTexture = Content.Load<Texture2D>("avatar");
-            var playerPos = new Vector2(Window.ClientBounds.Width / 2 - playerTexture.Width / 2, Window.ClientBounds.Height / 2 - playerTexture.Height / 2);
-            var player = new Player(playerTexture, playerPos, Window.ClientBounds);
-            _gameObjs.Add(player);
-            // TODO: use this.Content to load your game content here
+            foreach (var obj in _gameObjs)
+            {
+                obj.Load(Content, Window);
+            }
         }
 
         /// <summary>
