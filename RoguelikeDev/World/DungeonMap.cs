@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using RoguelikeDev.Entities;
 using RogueSharp;
 using RogueSharp.MapCreation;
@@ -15,11 +16,17 @@ namespace RoguelikeDev.World
     public class DungeonMap : IGameObject
     {
         public Map CurrentMap { get; set; }
+        public IMapCreationStrategy<Map> Strategy { get; set; }
         public Texture2D FloorTile { get; set; }
         public Texture2D WallTile { get; set; }
+        public int TileSize { get; set; }
+        public float TileScale { get; set; }
 
-        public DungeonMap(IMapCreationStrategy<Map> strategy)
+        public DungeonMap(IMapCreationStrategy<Map> strategy, int tileSize=64, float tileScale = 1)
         {
+            Strategy = strategy;
+            TileSize = tileSize;
+            TileScale = tileScale;
             CurrentMap = Map.Create(strategy);
         }
 
@@ -31,27 +38,30 @@ namespace RoguelikeDev.World
 
         public void Update(GameTime gameTime)
         {
-
+#if DEBUG
+            KeyboardState state = Keyboard.GetState();
+            if (state.IsKeyDown(Keys.Space))
+            {
+                CurrentMap = Map.Create(Strategy);
+            }
+#endif
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int tileSize = 64;
-            float scale = .25f;
-
             foreach (Cell cell in CurrentMap.GetAllCells())
             {
-                if (cell.IsWalkable)
-                {
-                    var pos = new Vector2(cell.X * tileSize * scale, cell.Y * tileSize * scale);
-                    spriteBatch.Draw(FloorTile, pos, null, null, null, 0.0f, new Vector2(scale, scale), Color.White);
-                }
-                else
-                {
-                    var pos = new Vector2(cell.X * tileSize * scale, cell.Y * tileSize * scale);
-                    spriteBatch.Draw(WallTile, pos, null, null, null, 0.0f, new Vector2(scale, scale), Color.White);
-                }
+                Texture2D currentTile;
+                currentTile = cell.IsWalkable ? FloorTile : WallTile;
+                DrawTile(currentTile, cell, spriteBatch);
             }
+        }
+
+        private void DrawTile(Texture2D texture, Cell cell, SpriteBatch spriteBatch)
+        {
+            TileScale = 0.25f;
+            var pos = new Vector2(cell.X * TileSize * TileScale, cell.Y * TileSize * TileScale);
+            spriteBatch.Draw(texture, pos, null, null, null, 0.0f, new Vector2(TileScale, TileScale), Color.White);
         }
     }
 }
