@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RoguelikeDev.Entities;
 using System.Collections.Generic;
+using RogueSharp;
+using RogueSharp.MapCreation;
+using RoguelikeDev.World;
 
 namespace RoguelikeDev
 {
@@ -29,7 +32,10 @@ namespace RoguelikeDev
         /// </summary>
         protected override void Initialize()
         {
+            var mapStrat = new RandomRoomsMapCreationStrategy<Map>(50, 40, 10, 15, 7);
+
             _gameObjs = new List<IGameObject> {
+                new DungeonMap(mapStrat),
                 new Player(Window.ClientBounds)
             };
             base.Initialize();
@@ -69,11 +75,11 @@ namespace RoguelikeDev
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
             foreach (var obj in _gameObjs)
             {
                 obj.Update(gameTime);
             }
+
             base.Update(gameTime);
         }
 
@@ -86,10 +92,12 @@ namespace RoguelikeDev
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
+
             foreach (var obj in _gameObjs)
             {
                 obj.Draw(_spriteBatch);
             }
+
             _spriteBatch.End();
 
             base.Draw(gameTime);

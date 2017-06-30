@@ -25,7 +25,7 @@ namespace RoguelikeDev.Entities
                 window.ClientBounds.Width / 2 - playerTexture.Width / 2, 
                 window.ClientBounds.Height / 2 - playerTexture.Height / 2
             );
-            LoadContent(playerTexture, initialPosition);
+            base.LoadContent(playerTexture, initialPosition);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
