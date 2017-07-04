@@ -30,7 +30,8 @@ namespace RoguelikeDev.Entities
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            //base.Draw(spriteBatch);
+            spriteBatch.Draw(SpriteTexture, Location, null, null, null, 0.0f, new Vector2(0.75f, 0.75f), Color.White);
         }
 
         public override void Update(GameTime gameTime)

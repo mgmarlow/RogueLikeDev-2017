@@ -22,7 +22,7 @@ namespace RoguelikeDev.World
         public int TileSize { get; set; }
         public float TileScale { get; set; }
 
-        public DungeonMap(IMapCreationStrategy<Map> strategy, int tileSize=64, float tileScale = 1)
+        public DungeonMap(IMapCreationStrategy<Map> strategy, int tileSize=64, float tileScale=1)
         {
             Strategy = strategy;
             TileSize = tileSize;
@@ -59,7 +59,6 @@ namespace RoguelikeDev.World
 
         private void DrawTile(Texture2D texture, Cell cell, SpriteBatch spriteBatch)
         {
-            TileScale = 0.25f;
             var pos = new Vector2(cell.X * TileSize * TileScale, cell.Y * TileSize * TileScale);
             spriteBatch.Draw(texture, pos, null, null, null, 0.0f, new Vector2(TileScale, TileScale), Color.White);
         }

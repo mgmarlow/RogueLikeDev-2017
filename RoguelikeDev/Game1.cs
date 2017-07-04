@@ -17,12 +17,13 @@ namespace RoguelikeDev
         GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;
         List<IGameObject> _gameObjs;
+        Camera _camera;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 1280;
-            _graphics.PreferredBackBufferHeight= 920;
+            _graphics.PreferredBackBufferHeight = 920;
             Content.RootDirectory = "Content";
         }
 
@@ -34,7 +35,8 @@ namespace RoguelikeDev
         /// </summary>
         protected override void Initialize()
         {
-            var mapStrat = new RandomRoomsMapCreationStrategy<Map>(80, 58, 10, 15, 7);
+            var mapStrat = new RandomRoomsMapCreationStrategy<Map>(80, 58, 30, 20, 4);
+            _camera = new Camera(GraphicsDevice.Viewport);
 
             _gameObjs = new List<IGameObject> {
                 new DungeonMap(mapStrat),
@@ -93,7 +95,7 @@ namespace RoguelikeDev
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, _camera.TransformMatrix);
 
             foreach (var obj in _gameObjs)
             {
