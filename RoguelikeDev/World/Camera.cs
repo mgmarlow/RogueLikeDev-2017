@@ -57,7 +57,7 @@ namespace RoguelikeDev.World
         /// <returns></returns>
         private Vector2 MapToClampedPosition(Vector2 position)
         {
-            IMap map = MapLocator.GetMap();
+            IMap map = ServiceLocator<IMap>.GetService();
             var min = new Vector2(Origin.X, Origin.Y);
             var max = new Vector2((-1 * map.Width * 64) + _bounds.Width, (-1 * map.Height * 64) + _bounds.Height);
             return Vector2.Clamp(position, max, min);

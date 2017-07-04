@@ -29,7 +29,7 @@ namespace RoguelikeDev.World
             TileSize = tileSize;
             TileScale = tileScale;
             CurrentMap = Map.Create(strategy);
-            MapLocator.Provide(CurrentMap);
+            ServiceLocator<IMap>.Provide(CurrentMap);
         }
 
         public void Load(ContentManager content, GameWindow window)
@@ -45,7 +45,7 @@ namespace RoguelikeDev.World
             if (state.IsKeyDown(Keys.Space))
             {
                 CurrentMap = Map.Create(Strategy);
-                MapLocator.Provide(CurrentMap);
+                ServiceLocator<IMap>.Provide(CurrentMap);
             }
 #endif
         }
