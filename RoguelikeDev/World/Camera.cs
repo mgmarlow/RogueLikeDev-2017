@@ -39,6 +39,10 @@ namespace RoguelikeDev.World
             Origin = Vector2.Zero;
         }
 
+        /// <summary>
+        /// Move camera relative towards direction vector
+        /// </summary>
+        /// <param name="dir"></param>
         public void Move(Vector2 dir)
         {
             var newPos = Location + dir;
@@ -46,7 +50,8 @@ namespace RoguelikeDev.World
         }
 
         /// <summary>
-        /// Ensure the camera is always within game world
+        /// Ensure the camera is always within game world, clamps position on movement based on
+        /// generated map.
         /// </summary>
         /// <param name="position"></param>
         /// <returns></returns>
@@ -54,7 +59,7 @@ namespace RoguelikeDev.World
         {
             IMap map = MapLocator.GetMap();
             var min = new Vector2(Origin.X, Origin.Y);
-            var max = new Vector2(-1 * map.Width * 64 + (_bounds.Width), -1 * map.Height * 64 + (_bounds.Height));
+            var max = new Vector2((-1 * map.Width * 64) + _bounds.Width, (-1 * map.Height * 64) + _bounds.Height);
             return Vector2.Clamp(position, max, min);
         }
 
