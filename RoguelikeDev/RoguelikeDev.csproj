@@ -46,6 +46,7 @@
     <Compile Include="Entities\Sprite.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Services\CameraLocator.cs" />
+    <Compile Include="Services\MapLocator.cs" />
     <Compile Include="World\Camera.cs" />
     <Compile Include="World\DungeonMap.cs" />
     <Compile Include="Program.cs" />

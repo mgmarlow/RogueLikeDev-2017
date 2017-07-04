@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RoguelikeDev.Services;
+using RogueSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +13,7 @@ namespace RoguelikeDev.World
 {
     public class Camera : ICamera
     {
-        private Rectangle _bounds;
+        private Microsoft.Xna.Framework.Rectangle _bounds;
 
         public float Zoom { get; set; }
         public Vector2 Location { get; set; }
@@ -38,7 +41,21 @@ namespace RoguelikeDev.World
 
         public void Move(Vector2 dir)
         {
-            Location += dir;
+            var newPos = Location + dir;
+            Location = MapToClampedPosition(newPos);
+        }
+
+        /// <summary>
+        /// Ensure the camera is always within game world
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        private Vector2 MapToClampedPosition(Vector2 position)
+        {
+            IMap map = MapLocator.GetMap();
+            var min = new Vector2(Origin.X, Origin.Y);
+            var max = new Vector2(-1 * map.Width * 64 + (_bounds.Width), -1 * map.Height * 64 + (_bounds.Height));
+            return Vector2.Clamp(position, max, min);
         }
 
     }

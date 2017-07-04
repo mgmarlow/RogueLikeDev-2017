@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RoguelikeDev.Entities;
+using RoguelikeDev.Services;
 using RogueSharp;
 using RogueSharp.MapCreation;
 using System;
@@ -28,6 +29,7 @@ namespace RoguelikeDev.World
             TileSize = tileSize;
             TileScale = tileScale;
             CurrentMap = Map.Create(strategy);
+            MapLocator.Provide(CurrentMap);
         }
 
         public void Load(ContentManager content, GameWindow window)
@@ -43,6 +45,7 @@ namespace RoguelikeDev.World
             if (state.IsKeyDown(Keys.Space))
             {
                 CurrentMap = Map.Create(Strategy);
+                MapLocator.Provide(CurrentMap);
             }
 #endif
         }
