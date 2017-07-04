@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using RogueSharp;
 using RogueSharp.MapCreation;
 using RoguelikeDev.World;
+using RoguelikeDev.Services;
 
 namespace RoguelikeDev
 {
@@ -37,6 +38,7 @@ namespace RoguelikeDev
         {
             var mapStrat = new RandomRoomsMapCreationStrategy<Map>(80, 58, 30, 20, 4);
             _camera = new Camera(GraphicsDevice.Viewport);
+            CameraLocator.Provide(_camera);
 
             _gameObjs = new List<IGameObject> {
                 new DungeonMap(mapStrat),

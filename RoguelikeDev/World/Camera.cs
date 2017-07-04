@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RoguelikeDev.World
 {
-    public class Camera
+    public class Camera : ICamera
     {
         private Rectangle _bounds;
 

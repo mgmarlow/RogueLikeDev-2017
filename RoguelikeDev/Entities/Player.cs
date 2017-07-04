@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RoguelikeDev.Services;
+using RoguelikeDev.World;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,18 +51,35 @@ namespace RoguelikeDev.Entities
             GamePadCapabilities cap = GamePad.GetCapabilities(PlayerIndex.One);
             if (!cap.IsConnected) return;
 
+            // Grab camera to follow player movement
+            ICamera camera = CameraLocator.GetCamera();
+
             GamePadState state = GamePad.GetState(PlayerIndex.One);
             if (cap.HasLeftXThumbStick)
             {
                 if (state.ThumbSticks.Left.X < -0.5f)
+                {
                     Location = new Vector2(Location.X - _playerSpeed, Location.Y);
+                    camera.Move(new Vector2(_playerSpeed, 0.0f));
+                }
+
                 if (state.ThumbSticks.Left.X > 0.5f)
+                {
                     Location = new Vector2(Location.X + _playerSpeed, Location.Y);
+                    camera.Move(new Vector2(-_playerSpeed, 0.0f));
+                }
 
                 if (state.ThumbSticks.Left.Y < -0.5f)
+                {
                     Location = new Vector2(Location.X, Location.Y + _playerSpeed);
+                    camera.Move(new Vector2(0.0f, -_playerSpeed));
+                }
+
                 if (state.ThumbSticks.Left.Y > 0.5f)
+                {
                     Location = new Vector2(Location.X, Location.Y - _playerSpeed);
+                    camera.Move(new Vector2(0.0f, _playerSpeed));
+                }
             }
         }
     }

@@ -45,10 +45,12 @@
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Entities\Sprite.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Services\CameraLocator.cs" />
     <Compile Include="World\Camera.cs" />
     <Compile Include="World\DungeonMap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="World\ICamera.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
