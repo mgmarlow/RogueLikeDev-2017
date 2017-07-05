@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RoguelikeDev.Entities;
 using RoguelikeDev.Services;
 using RogueSharp;
 using System;
@@ -52,6 +53,22 @@ namespace RoguelikeDev.World
         public Microsoft.Xna.Framework.Rectangle GetBounds()
         {
             return Bounds;
+        }
+
+        public bool WithinViewportBounds(Player player)
+        {
+            IDungeonMap dungeon = ServiceLocator<IDungeonMap>.GetService();
+            var map = dungeon.GetMap();
+
+            // Upper-left
+            var minXCheck = player.Location.X > (Bounds.Width * 0.5f) - (player.SpriteTexture.Width * 0.5f);
+            var minYCheck = player.Location.Y > (Bounds.Height * 0.5f) - (player.SpriteTexture.Height * 0.5f);
+
+            // Lower-right
+            var maxXCheck = player.Location.X < (map.Width * dungeon.GetTileSize() - (Bounds.Width * 0.5f) - (player.SpriteTexture.Width * 0.5f));
+            var maxYCheck = player.Location.Y < (map.Height * dungeon.GetTileSize() - (Bounds.Height * 0.5f) - (player.SpriteTexture.Height * 0.5f));
+
+            return (minXCheck && minYCheck) && (maxXCheck && maxYCheck);
         }
 
         /// <summary>

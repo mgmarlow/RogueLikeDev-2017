@@ -54,6 +54,7 @@ namespace RoguelikeDev.Entities
             if (!cap.IsConnected) return;
 
             // Grab camera to follow player movement
+            ICamera camera = ServiceLocator<ICamera>.GetService();
 
             GamePadState state = GamePad.GetState(PlayerIndex.One);
             if (cap.HasLeftXThumbStick)
@@ -61,25 +62,25 @@ namespace RoguelikeDev.Entities
                 if (state.ThumbSticks.Left.X < -0.5f)
                 {
                     Location = new Vector2(Location.X - _playerSpeed, Location.Y);
-                    MoveCameraWithPlayer(new Vector2(_playerSpeed, 0.0f));
+                    MoveCameraWithPlayer(camera, new Vector2(_playerSpeed, 0.0f));
                 }
 
                 if (state.ThumbSticks.Left.X > 0.5f)
                 {
                     Location = new Vector2(Location.X + _playerSpeed, Location.Y);
-                    MoveCameraWithPlayer(new Vector2(-_playerSpeed, 0.0f));
+                    MoveCameraWithPlayer(camera, new Vector2(-_playerSpeed, 0.0f));
                 }
 
                 if (state.ThumbSticks.Left.Y < -0.5f)
                 {
                     Location = new Vector2(Location.X, Location.Y + _playerSpeed);
-                    MoveCameraWithPlayer(new Vector2(0.0f, -_playerSpeed));
+                    MoveCameraWithPlayer(camera, new Vector2(0.0f, -_playerSpeed));
                 }
 
                 if (state.ThumbSticks.Left.Y > 0.5f)
                 {
                     Location = new Vector2(Location.X, Location.Y - _playerSpeed);
-                    MoveCameraWithPlayer(new Vector2(0.0f, _playerSpeed));
+                    MoveCameraWithPlayer(camera, new Vector2(0.0f, _playerSpeed));
                 }
             }
         }
@@ -88,34 +89,11 @@ namespace RoguelikeDev.Entities
         /// Move the camera with the player movement. Prevent movement outside the available map
         /// </summary>
         /// <param name="direction"></param>
-        private void MoveCameraWithPlayer(Vector2 direction)
+        private void MoveCameraWithPlayer(ICamera camera, Vector2 direction)
         {
-            ICamera camera = ServiceLocator<ICamera>.GetService();
-            IDungeonMap dungeon = ServiceLocator<IDungeonMap>.GetService();
-            if (WithinViewportBounds(camera, dungeon))
+            if (camera.WithinViewportBounds(this))
                 camera.Move(direction);
         }
 
-        /// <summary>
-        /// Checks whether or not the player is within the camera and map bounds
-        /// </summary>
-        /// <param name="camera"></param>
-        /// <param name="dungeon"></param>
-        /// <returns></returns>
-        private bool WithinViewportBounds(ICamera camera, IDungeonMap dungeon)
-        {
-            var vpBounds = camera.GetBounds();
-            var map = dungeon.GetMap();
-
-            // Upper-left
-            var minXCheck = Location.X > (vpBounds.Width * 0.5f) - (SpriteTexture.Width * 0.5f);
-            var minYCheck = Location.Y > (vpBounds.Height * 0.5f) - (SpriteTexture.Height * 0.5f);
-
-            // Lower-right
-            var maxXCheck = Location.X < (map.Width * dungeon.GetTileSize() - (vpBounds.Width * 0.5f) - (SpriteTexture.Width * 0.5f));
-            var maxYCheck = Location.Y < (map.Height * dungeon.GetTileSize() - (vpBounds.Height * 0.5f) - (SpriteTexture.Height * 0.5f));
-
-            return (minXCheck && minYCheck) && (maxXCheck && maxYCheck);
-        }
     }
 }

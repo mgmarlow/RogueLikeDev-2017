@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using RoguelikeDev.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +13,6 @@ namespace RoguelikeDev.World
     {
         void Move(Vector2 dir);
         Rectangle GetBounds();
+        bool WithinViewportBounds(Player player);
     }
 }
