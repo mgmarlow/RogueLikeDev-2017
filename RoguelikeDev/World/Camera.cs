@@ -55,18 +55,18 @@ namespace RoguelikeDev.World
             return Bounds;
         }
 
-        public bool WithinViewportBounds(Player player, Vector2 direction)
+        public bool WithinViewportBounds(Sprite sprite, Vector2 direction)
         {
             IDungeonMap dungeon = ServiceLocator<IDungeonMap>.GetService();
             var map = dungeon.GetMap();
 
             // Upper-left
-            var minXCheck = player.Location.X > (Bounds.Width * 0.5f) - (player.SpriteTexture.Width * 0.5f);
-            var minYCheck = player.Location.Y > (Bounds.Height * 0.5f) - (player.SpriteTexture.Height * 0.5f);
+            var minXCheck = sprite.Location.X > (Bounds.Width * 0.5f) - (sprite.SpriteTexture.Width * 0.5f);
+            var minYCheck = sprite.Location.Y > (Bounds.Height * 0.5f) - (sprite.SpriteTexture.Height * 0.5f);
 
             // Lower-right
-            var maxXCheck = player.Location.X < ((map.Width * dungeon.GetTileSize()) - (Bounds.Width * 0.5f) - (player.SpriteTexture.Width * 0.5f));
-            var maxYCheck = player.Location.Y < ((map.Height * dungeon.GetTileSize()) - (Bounds.Height * 0.5f) - (player.SpriteTexture.Height * 0.5f));
+            var maxXCheck = sprite.Location.X < ((map.Width * dungeon.GetTileSize()) - (Bounds.Width * 0.5f) - (sprite.SpriteTexture.Width * 0.5f));
+            var maxYCheck = sprite.Location.Y < ((map.Height * dungeon.GetTileSize()) - (Bounds.Height * 0.5f) - (sprite.SpriteTexture.Height * 0.5f));
 
             return ((minXCheck && maxXCheck) || direction.Y != 0.0f) && ((minYCheck && maxYCheck) || direction.X != 0.0f);
         }
