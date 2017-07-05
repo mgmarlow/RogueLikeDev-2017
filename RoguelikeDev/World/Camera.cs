@@ -13,8 +13,7 @@ namespace RoguelikeDev.World
 {
     public class Camera : ICamera
     {
-        private Microsoft.Xna.Framework.Rectangle _bounds;
-
+        public Microsoft.Xna.Framework.Rectangle Bounds { get; set; }
         public float Zoom { get; set; }
         public Vector2 Location { get; set; }
         public Vector2 Origin { get; set; }
@@ -33,7 +32,8 @@ namespace RoguelikeDev.World
 
         public Camera(Viewport viewport)
         {
-            _bounds = viewport.Bounds;
+            Debug.WriteLine(viewport.Bounds);
+            Bounds = viewport.Bounds;
             Zoom = 1.0f;
             Location = Vector2.Zero;
             Origin = Vector2.Zero;
@@ -49,6 +49,11 @@ namespace RoguelikeDev.World
             Location = MapToClampedPosition(newPos);
         }
 
+        public Microsoft.Xna.Framework.Rectangle GetBounds()
+        {
+            return Bounds;
+        }
+
         /// <summary>
         /// Ensure the camera is always within game world, clamps position on movement based on
         /// generated map.
@@ -57,9 +62,13 @@ namespace RoguelikeDev.World
         /// <returns></returns>
         private Vector2 MapToClampedPosition(Vector2 position)
         {
-            IMap map = ServiceLocator<IMap>.GetService();
+            IDungeonMap dungeon = ServiceLocator<IDungeonMap>.GetService();
+            var map = dungeon.GetMap();
             var min = new Vector2(Origin.X, Origin.Y);
-            var max = new Vector2((-1 * map.Width * 64) + _bounds.Width, (-1 * map.Height * 64) + _bounds.Height);
+            var max = new Vector2(
+                (-1 * map.Width * dungeon.GetTileSize()) + Bounds.Width,
+                (-1 * map.Height * dungeon.GetTileSize()) + Bounds.Height
+            );
             return Vector2.Clamp(position, max, min);
         }
 

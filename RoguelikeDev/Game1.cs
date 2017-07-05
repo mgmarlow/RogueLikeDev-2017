@@ -19,6 +19,7 @@ namespace RoguelikeDev
         SpriteBatch _spriteBatch;
         List<IGameObject> _gameObjs;
         Camera _camera;
+        DungeonMap _dungeonMap;
 
         public Game1()
         {
@@ -37,11 +38,15 @@ namespace RoguelikeDev
         protected override void Initialize()
         {
             var mapStrat = new RandomRoomsMapCreationStrategy<Map>(80, 58, 30, 20, 4);
+
+            _dungeonMap = new DungeonMap(mapStrat);
             _camera = new Camera(GraphicsDevice.Viewport);
+
             ServiceLocator<ICamera>.Provide(_camera);
+            ServiceLocator<IDungeonMap>.Provide(_dungeonMap);
 
             _gameObjs = new List<IGameObject> {
-                new DungeonMap(mapStrat),
+                _dungeonMap,
                 new Player(Window.ClientBounds)
             };
             base.Initialize();

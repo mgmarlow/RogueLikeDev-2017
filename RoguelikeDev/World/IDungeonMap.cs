@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿using RogueSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace RoguelikeDev.World
 {
-    public interface ICamera
+    public interface IDungeonMap
     {
-        void Move(Vector2 dir);
-        Rectangle GetBounds();
+        IMap GetMap();
+        int GetTileSize();
     }
 }

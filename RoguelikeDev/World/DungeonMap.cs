@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace RoguelikeDev.World
 {
-    public class DungeonMap : IGameObject
+    public class DungeonMap : IGameObject, IDungeonMap
     {
         public Map CurrentMap { get; set; }
         public IMapCreationStrategy<Map> Strategy { get; set; }
@@ -29,7 +29,16 @@ namespace RoguelikeDev.World
             TileSize = tileSize;
             TileScale = tileScale;
             CurrentMap = Map.Create(strategy);
-            ServiceLocator<IMap>.Provide(CurrentMap);
+        }
+
+        public IMap GetMap()
+        {
+            return CurrentMap;
+        }
+
+        public int GetTileSize()
+        {
+            return TileSize;
         }
 
         public void Load(ContentManager content, GameWindow window)
@@ -45,7 +54,6 @@ namespace RoguelikeDev.World
             if (state.IsKeyDown(Keys.Space))
             {
                 CurrentMap = Map.Create(Strategy);
-                ServiceLocator<IMap>.Provide(CurrentMap);
             }
 #endif
         }
