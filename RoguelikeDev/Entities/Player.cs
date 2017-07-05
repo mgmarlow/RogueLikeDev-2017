@@ -91,7 +91,7 @@ namespace RoguelikeDev.Entities
         /// <param name="direction"></param>
         private void MoveCameraWithPlayer(ICamera camera, Vector2 direction)
         {
-            if (camera.WithinViewportBounds(this))
+            if (camera.WithinViewportBounds(this, direction))
                 camera.Move(direction);
         }
 

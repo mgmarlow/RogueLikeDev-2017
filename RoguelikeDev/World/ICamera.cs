@@ -13,6 +13,6 @@ namespace RoguelikeDev.World
     {
         void Move(Vector2 dir);
         Rectangle GetBounds();
-        bool WithinViewportBounds(Player player);
+        bool WithinViewportBounds(Player player, Vector2 direction);
     }
 }
