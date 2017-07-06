@@ -47,22 +47,23 @@ namespace RoguelikeDev.Entities.Player
 
             if (cap.IsConnected)
             {
-                GamePadState state = GamePad.GetState(PlayerIndex.One);
+                GamePadState gamepadState = GamePad.GetState(PlayerIndex.One);
 
-                ISpriteGamepadState playerState = _state.HandleInput(this, cap, state);
-                if (playerState != null)
-                {
-                    _state = playerState;
-                }
-
-                ISpriteGamepadState equipmentState = _equipment.HandleInput(this, cap, state);
-                if (equipmentState != null)
-                {
-                    _equipment = equipmentState;
-                }
+                _state = RunState(_state, cap, gamepadState);
+                _equipment = RunState(_equipment, cap, gamepadState);
             }
 
             _state.Update(this);
+        }
+
+        private ISpriteGamepadState RunState(ISpriteGamepadState currentState, GamePadCapabilities cap, GamePadState gamepadState)
+        {
+            var newState = currentState.HandleInput(this, cap, gamepadState);
+            if (newState != null)
+            {
+                return newState;
+            }
+            return currentState;
         }
 
     }
