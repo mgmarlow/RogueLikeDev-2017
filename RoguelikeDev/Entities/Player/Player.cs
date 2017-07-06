@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RoguelikeDev.Entities.Player.PlayerStates;
+using RoguelikeDev.Extensions;
 using RoguelikeDev.Services;
 using RoguelikeDev.World;
 using RogueSharp;
@@ -27,10 +28,8 @@ namespace RoguelikeDev.Entities.Player
         public override void Load(ContentManager content, GameWindow window)
         {
             var playerTexture = content.Load<Texture2D>("avatar");
-            var initialPosition = new Vector2(
-                window.ClientBounds.Width / 2 - playerTexture.Width / 2, 
-                window.ClientBounds.Height / 2 - playerTexture.Height / 2
-            );
+            var dungeon = ServiceLocator<IDungeonMap>.GetService();
+            var initialPosition = dungeon.PlacePlayer(this);
             base.LoadContent(playerTexture, initialPosition);
         }
 

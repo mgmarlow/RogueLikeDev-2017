@@ -55,6 +55,11 @@ namespace RoguelikeDev.World
             return Bounds;
         }
 
+        public void SetLocation(Vector2 newLoc)
+        {
+            Location = MapToClampedPosition(newLoc);
+        }
+
         public void FollowSprite(Sprite sprite, Vector2 direction)
         {
             if (WithinViewportBounds(sprite, direction))

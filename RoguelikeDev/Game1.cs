@@ -8,6 +8,7 @@ using RogueSharp;
 using RogueSharp.MapCreation;
 using RoguelikeDev.World;
 using RoguelikeDev.Services;
+using RoguelikeDev.Extensions;
 
 namespace RoguelikeDev
 {
@@ -50,6 +51,7 @@ namespace RoguelikeDev
                 _dungeonMap,
                 new Player(Window.ClientBounds)
             };
+
             base.Initialize();
         }
 

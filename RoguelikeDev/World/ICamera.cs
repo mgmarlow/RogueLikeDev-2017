@@ -13,6 +13,7 @@ namespace RoguelikeDev.World
     {
         void Move(Vector2 dir);
         Rectangle GetBounds();
+        void SetLocation(Vector2 newLoc);
         void FollowSprite(Sprite sprite, Vector2 direction);
         bool WithinViewportBounds(Sprite sprite, Vector2 direction);
     }
