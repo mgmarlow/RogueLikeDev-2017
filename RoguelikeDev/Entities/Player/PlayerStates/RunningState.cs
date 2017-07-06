@@ -20,7 +20,6 @@ namespace RoguelikeDev.Entities.Player.PlayerStates
         public RunningState()
         {
             _dungeon = ServiceLocator<IDungeonMap>.GetService();
-
         }
 
         public ISpriteGamepadState HandleInput(Sprite player, GamePadCapabilities cap, GamePadState state)

@@ -42,7 +42,5 @@ namespace RoguelikeDev.Entities
             SpriteTexture = texture;
             Location = location;
         }
-
-        protected abstract void CheckBounds();
     }
 }

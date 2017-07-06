@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RoguelikeDev.Entities.Player.EquipmentStates;
 using RoguelikeDev.Entities.Player.PlayerStates;
 using RoguelikeDev.Extensions;
 using RoguelikeDev.Services;
@@ -19,6 +20,7 @@ namespace RoguelikeDev.Entities.Player
     public class Player : Sprite
     {
         private ISpriteGamepadState _state = new StandingState();
+        private ISpriteGamepadState _equipment = new DefaultWeaponState();
         public float SpeedThreshold = 0.5f;
 
         public Player(Microsoft.Xna.Framework.Rectangle gameBounds) : base(gameBounds)
@@ -52,14 +54,15 @@ namespace RoguelikeDev.Entities.Player
                 {
                     _state = playerState;
                 }
+
+                ISpriteGamepadState equipmentState = _equipment.HandleInput(this, cap, state);
+                if (equipmentState != null)
+                {
+                    _equipment = equipmentState;
+                }
             }
 
             _state.Update(this);
-        }
-
-        protected override void CheckBounds()
-        {
-            throw new NotImplementedException();
         }
 
     }
