@@ -27,7 +27,6 @@ namespace RoguelikeDev.World
 
         public Camera(Viewport viewport)
         {
-            Debug.WriteLine(viewport.Bounds);
             Bounds = viewport.Bounds;
             Zoom = 1.0f;
             Location = Vector2.Zero;
@@ -51,7 +50,10 @@ namespace RoguelikeDev.World
 
         public void SetLocation(Vector2 newLoc)
         {
-            Location = MapToClampedPosition(newLoc);
+            // TODO: set origin
+            //Origin = new Vector2(newLoc.X - Bounds.Width / 2, newLoc.Y - Bounds.Height / 2);
+            var clampedLocation = MapToClampedPosition(newLoc);
+            Location = clampedLocation;
         }
 
         public void FollowSprite(Sprite sprite, Vector2 direction)

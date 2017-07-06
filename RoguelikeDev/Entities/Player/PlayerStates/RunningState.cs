@@ -7,9 +7,10 @@ namespace RoguelikeDev.Entities.Player.PlayerStates
 {
     public class RunningState : ISpriteGamepadState
     {
-        public static float SpeedThreshold = 0.5f;
         private float _playerSpeed = 7.0f;
         private IDungeonMap _dungeon;
+
+        public static float SpeedThreshold = 0.5f;
 
         public RunningState()
         {
@@ -19,32 +20,38 @@ namespace RoguelikeDev.Entities.Player.PlayerStates
         public ISpriteGamepadState HandleInput(Sprite player, GamePadCapabilities cap, GamePadState state)
         {
             ICamera camera = ServiceLocator<ICamera>.GetService();
+            Vector2 newLocation, cameraVector;
 
             if (state.ThumbSticks.Left.X < -SpeedThreshold)
             {
-                player.Location = new Vector2(player.Location.X - _playerSpeed, player.Location.Y);
-                camera.FollowSprite(player, new Vector2(_playerSpeed, 0.0f));
+                newLocation = new Vector2(player.Location.X - _playerSpeed, player.Location.Y);
+                cameraVector = new Vector2(_playerSpeed, 0.0f);
             }
             else if (state.ThumbSticks.Left.X > SpeedThreshold)
             {
-                player.Location = new Vector2(player.Location.X + _playerSpeed, player.Location.Y);
-                camera.FollowSprite(player, new Vector2(-_playerSpeed, 0.0f));
+                newLocation = new Vector2(player.Location.X + _playerSpeed, player.Location.Y);
+                cameraVector = new Vector2(-_playerSpeed, 0.0f);
             }
             else if (state.ThumbSticks.Left.Y < -SpeedThreshold)
             {
-                player.Location = new Vector2(player.Location.X, player.Location.Y + _playerSpeed);
-                camera.FollowSprite(player, new Vector2(0.0f, -_playerSpeed));
+                newLocation = new Vector2(player.Location.X, player.Location.Y + _playerSpeed);
+                cameraVector = new Vector2(0.0f, -_playerSpeed);
             }
             else if (state.ThumbSticks.Left.Y > SpeedThreshold)
             {
-                player.Location = new Vector2(player.Location.X, player.Location.Y - _playerSpeed);
-                camera.FollowSprite(player, new Vector2(0.0f, _playerSpeed));
+                newLocation = new Vector2(player.Location.X, player.Location.Y - _playerSpeed);
+                cameraVector = new Vector2(0.0f, _playerSpeed);
             }
             else
             {
                 return new StandingState();
             }
 
+            if (WithinBounds(player, newLocation))
+            {
+                player.Location = newLocation;
+                camera.FollowSprite(player, cameraVector);
+            }
             return null;
         }
 
@@ -53,10 +60,16 @@ namespace RoguelikeDev.Entities.Player.PlayerStates
 
         }
 
+        private bool WithinBounds(Sprite player, Vector2 newPosition)
+        {
+            var centeredPosition = new Vector2(newPosition.X + player.SpriteTexture.Width * 0.5f, newPosition.Y + player.SpriteTexture.Height * 0.5f);
+            return NextCellIsWalkable(centeredPosition);
+        }
+
         private bool NextCellIsWalkable(Vector2 newPosition)
         {
-            // TODO: Check cell at next pos
-            var nextCell = _dungeon.GetMap().GetCell((int)newPosition.X, (int)newPosition.Y);
+            var tileSize = _dungeon.GetTileSize();
+            var nextCell = _dungeon.GetMap().GetCell((int)newPosition.X / tileSize, (int)newPosition.Y / tileSize);
             return nextCell.IsWalkable;
         }
     }

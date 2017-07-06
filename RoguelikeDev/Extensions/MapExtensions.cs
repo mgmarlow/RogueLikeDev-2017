@@ -8,7 +8,7 @@ namespace RoguelikeDev.Extensions
 {
     public static class MapExtensions
     {
-        public static Vector2 PlacePlayer(this IDungeonMap dungeon, Player player)
+        public static Vector2 GetInitialPlayerPosition(this IDungeonMap dungeon)
         {
             ICamera camera = ServiceLocator<ICamera>.GetService();
             var map = dungeon.GetMap();

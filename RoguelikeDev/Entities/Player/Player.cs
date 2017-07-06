@@ -15,7 +15,7 @@ namespace RoguelikeDev.Entities.Player
         private ISpriteGamepadState _state = new StandingState();
         private ISpriteGamepadState _equipment = new DefaultWeaponState();
 
-        public Player(Microsoft.Xna.Framework.Rectangle gameBounds) : base(gameBounds)
+        public Player(Rectangle gameBounds) : base(gameBounds)
         {
         }
 
@@ -23,7 +23,7 @@ namespace RoguelikeDev.Entities.Player
         {
             var playerTexture = content.Load<Texture2D>("avatar");
             var dungeon = ServiceLocator<IDungeonMap>.GetService();
-            var initialPosition = dungeon.PlacePlayer(this);
+            var initialPosition = dungeon.GetInitialPlayerPosition();
             base.LoadContent(playerTexture, initialPosition);
         }
 
