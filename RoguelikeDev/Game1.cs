@@ -37,7 +37,7 @@ namespace RoguelikeDev
         /// </summary>
         protected override void Initialize()
         {
-            var mapStrat = new RandomRoomsMapCreationStrategy<Map>(80, 58, 30, 20, 4);
+            var mapStrat = new RandomRoomsMapCreationStrategy<Map>(40, 40, 30, 18, 8);
 
             _dungeonMap = new DungeonMap(mapStrat);
             _camera = new Camera(GraphicsDevice.Viewport);

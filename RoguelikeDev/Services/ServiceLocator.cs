@@ -18,6 +18,10 @@ namespace RoguelikeDev.Services
 
         public static T GetService()
         {
+            if (_service == null)
+            {
+                throw new NotImplementedException();
+            }
             return _service;
         }
 

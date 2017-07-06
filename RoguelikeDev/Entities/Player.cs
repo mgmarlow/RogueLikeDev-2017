@@ -16,10 +16,12 @@ namespace RoguelikeDev.Entities
 {
     public class Player : Sprite
     {
-        float _playerSpeed = 7.0f;
+        private float _playerSpeed = 7.0f;
+        private IDungeonMap _dungeon;
 
         public Player(Microsoft.Xna.Framework.Rectangle gameBounds) : base(gameBounds)
         {
+            _dungeon = ServiceLocator<IDungeonMap>.GetService();
         }
         
         public override void Load(ContentManager content, GameWindow window)
@@ -59,6 +61,7 @@ namespace RoguelikeDev.Entities
             GamePadState state = GamePad.GetState(PlayerIndex.One);
             if (cap.HasLeftXThumbStick)
             {
+                // TODO: Implement finite state machine to handle movement
                 if (state.ThumbSticks.Left.X < -0.5f)
                 {
                     Location = new Vector2(Location.X - _playerSpeed, Location.Y);
@@ -93,6 +96,13 @@ namespace RoguelikeDev.Entities
         {
             if (camera.WithinViewportBounds(this, direction))
                 camera.Move(direction);
+        }
+
+        private bool NextCellIsWalkable(Vector2 newPosition)
+        {
+            // TODO: Check cell at next pos
+            var nextCell = _dungeon.GetMap().GetCell((int)newPosition.X, (int)newPosition.Y);
+            return nextCell.IsWalkable;
         }
 
     }
