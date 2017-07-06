@@ -42,11 +42,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Entities\IGameObject.cs" />
+    <Compile Include="Entities\ISpriteGamepadState.cs" />
     <Compile Include="Entities\Player\Player.cs" />
     <Compile Include="Entities\Player\PlayerStates\StandingState.cs" />
     <Compile Include="Entities\Sprite.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Entities\Player\PlayerStates\IPlayerState.cs" />
     <Compile Include="Entities\Player\PlayerStates\RunningState.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="World\Camera.cs" />

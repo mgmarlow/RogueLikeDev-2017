@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace RoguelikeDev.Entities.Player.PlayerStates
 {
-    public class StandingState : IPlayerState
+    public class StandingState : ISpriteGamepadState
     {
-        public IPlayerState HandleInput(Player player, GamePadCapabilities cap, GamePadState state)
+        public ISpriteGamepadState HandleInput(Sprite player, GamePadCapabilities cap, GamePadState state)
         {
             if (cap.HasLeftXThumbStick && IsRunning(state))
             {
@@ -19,7 +19,7 @@ namespace RoguelikeDev.Entities.Player.PlayerStates
             return null;
         }
 
-        public void Update(Player player)
+        public void Update(Sprite player)
         {
 
         }

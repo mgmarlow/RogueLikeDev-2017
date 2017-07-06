@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RoguelikeDev.Entities.Player.PlayerStates
 {
-    public class RunningState : IPlayerState
+    public class RunningState : ISpriteGamepadState
     {
         private float _playerSpeed = 7.0f;
         private IDungeonMap _dungeon;
@@ -22,7 +22,7 @@ namespace RoguelikeDev.Entities.Player.PlayerStates
 
         }
 
-        public IPlayerState HandleInput(Player player, GamePadCapabilities cap, GamePadState state)
+        public ISpriteGamepadState HandleInput(Sprite player, GamePadCapabilities cap, GamePadState state)
         {
             ICamera camera = ServiceLocator<ICamera>.GetService();
 
@@ -54,7 +54,7 @@ namespace RoguelikeDev.Entities.Player.PlayerStates
             return null;
         }
 
-        public void Update(Player player)
+        public void Update(Sprite player)
         {
 
         }

@@ -17,7 +17,7 @@ namespace RoguelikeDev.Entities.Player
 {
     public class Player : Sprite
     {
-        private IPlayerState _state = new StandingState();
+        private ISpriteGamepadState _state = new StandingState();
 
         public Player(Microsoft.Xna.Framework.Rectangle gameBounds) : base(gameBounds)
         {
@@ -47,7 +47,7 @@ namespace RoguelikeDev.Entities.Player
             {
                 GamePadState state = GamePad.GetState(PlayerIndex.One);
 
-                IPlayerState playerState = _state.HandleInput(this, cap, state);
+                ISpriteGamepadState playerState = _state.HandleInput(this, cap, state);
                 if (playerState != null)
                 {
                     _state = playerState;
