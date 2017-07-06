@@ -3,12 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RoguelikeDev.Entities;
 using RoguelikeDev.Entities.Player;
-using System.Collections.Generic;
+using RoguelikeDev.Services;
+using RoguelikeDev.World;
 using RogueSharp;
 using RogueSharp.MapCreation;
-using RoguelikeDev.World;
-using RoguelikeDev.Services;
-using RoguelikeDev.Extensions;
+using System.Collections.Generic;
 
 namespace RoguelikeDev
 {

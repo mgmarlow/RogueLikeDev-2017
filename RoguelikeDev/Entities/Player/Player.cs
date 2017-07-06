@@ -7,13 +7,6 @@ using RoguelikeDev.Entities.Player.PlayerStates;
 using RoguelikeDev.Extensions;
 using RoguelikeDev.Services;
 using RoguelikeDev.World;
-using RogueSharp;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoguelikeDev.Entities.Player
 {
@@ -21,7 +14,6 @@ namespace RoguelikeDev.Entities.Player
     {
         private ISpriteGamepadState _state = new StandingState();
         private ISpriteGamepadState _equipment = new DefaultWeaponState();
-        public float SpeedThreshold = 0.5f;
 
         public Player(Microsoft.Xna.Framework.Rectangle gameBounds) : base(gameBounds)
         {
@@ -49,14 +41,15 @@ namespace RoguelikeDev.Entities.Player
             {
                 GamePadState gamepadState = GamePad.GetState(PlayerIndex.One);
 
-                _state = RunState(_state, cap, gamepadState);
-                _equipment = RunState(_equipment, cap, gamepadState);
+                _state = HandleStateInput(_state, cap, gamepadState);
+                _equipment = HandleStateInput(_equipment, cap, gamepadState);
             }
 
             _state.Update(this);
+            _equipment.Update(this);
         }
 
-        private ISpriteGamepadState RunState(ISpriteGamepadState currentState, GamePadCapabilities cap, GamePadState gamepadState)
+        private ISpriteGamepadState HandleStateInput(ISpriteGamepadState currentState, GamePadCapabilities cap, GamePadState gamepadState)
         {
             var newState = currentState.HandleInput(this, cap, gamepadState);
             if (newState != null)

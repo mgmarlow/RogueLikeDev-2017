@@ -2,13 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using RoguelikeDev.Entities;
 using RoguelikeDev.Services;
-using RogueSharp;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoguelikeDev.World
 {
