@@ -18,6 +18,7 @@ namespace RoguelikeDev.Entities.Player
     public class Player : Sprite
     {
         private ISpriteGamepadState _state = new StandingState();
+        public float SpeedThreshold = 0.5f;
 
         public Player(Microsoft.Xna.Framework.Rectangle gameBounds) : base(gameBounds)
         {

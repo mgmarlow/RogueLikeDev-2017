@@ -26,10 +26,10 @@ namespace RoguelikeDev.Entities.Player.PlayerStates
 
         private bool IsRunning(GamePadState state)
         {
-            return (state.ThumbSticks.Left.X < -0.5f || 
-                state.ThumbSticks.Left.X > 0.5f || 
-                state.ThumbSticks.Left.Y < -0.5f || 
-                state.ThumbSticks.Left.Y > 0.5f);
+            return (state.ThumbSticks.Left.X < -RunningState.SpeedThreshold || 
+                state.ThumbSticks.Left.X > RunningState.SpeedThreshold || 
+                state.ThumbSticks.Left.Y < -RunningState.SpeedThreshold|| 
+                state.ThumbSticks.Left.Y > RunningState.SpeedThreshold);
         }
     }
 }
