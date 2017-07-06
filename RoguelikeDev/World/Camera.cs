@@ -55,6 +55,12 @@ namespace RoguelikeDev.World
             return Bounds;
         }
 
+        public void FollowSprite(Sprite sprite, Vector2 direction)
+        {
+            if (WithinViewportBounds(sprite, direction))
+                Move(direction);
+        }
+
         public bool WithinViewportBounds(Sprite sprite, Vector2 direction)
         {
             IDungeonMap dungeon = ServiceLocator<IDungeonMap>.GetService();

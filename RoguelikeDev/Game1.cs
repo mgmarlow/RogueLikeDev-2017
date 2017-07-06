@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RoguelikeDev.Entities;
+using RoguelikeDev.Entities.Player;
 using System.Collections.Generic;
 using RogueSharp;
 using RogueSharp.MapCreation;
