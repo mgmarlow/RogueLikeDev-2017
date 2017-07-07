@@ -48,7 +48,7 @@ namespace RoguelikeDev
 
             _gameObjs = new List<IGameObject> {
                 _dungeonMap,
-                new Player(Window.ClientBounds)
+                new Player()
             };
 
             base.Initialize();

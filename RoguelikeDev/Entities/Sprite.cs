@@ -8,15 +8,13 @@ namespace RoguelikeDev.Entities
     {
         public Texture2D SpriteTexture { get; set; }
         public Vector2 Location { get; set; }
-        public Rectangle GameBounds { get; set; }
 
         public int Width => SpriteTexture.Width;
         public int Height => SpriteTexture.Height;
         public Rectangle BoundingBox => new Rectangle((int)Location.X, (int)Location.Y, Width, Height);
 
-        public Sprite(Rectangle gameBounds)
+        public Sprite()
         {
-            GameBounds = gameBounds;
         }
 
         ////////////////////////////////////

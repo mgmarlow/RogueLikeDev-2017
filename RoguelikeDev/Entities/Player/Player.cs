@@ -18,7 +18,7 @@ namespace RoguelikeDev.Entities.Player
 
         public static Weapon EquippedWeapon { get; set; }
 
-        public Player(Rectangle gameBounds) : base(gameBounds)
+        public Player()
         {
         }
 
@@ -33,7 +33,6 @@ namespace RoguelikeDev.Entities.Player
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            //spriteBatch.Draw(SpriteTexture, Location, null, null, null, 0.0f, new Vector2(0.5f, 0.5f), Color.White);
         }
 
         public override void Update(GameTime gameTime)

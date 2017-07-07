@@ -53,6 +53,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Entities\Player\PlayerStates\RunningState.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
+    <Compile Include="Weapons\Projectile.cs" />
     <Compile Include="Weapons\Weapon.cs" />
     <Compile Include="World\Camera.cs" />
     <Compile Include="World\DungeonMap.cs" />
