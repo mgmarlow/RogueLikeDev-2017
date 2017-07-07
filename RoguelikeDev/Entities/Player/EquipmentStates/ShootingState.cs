@@ -23,13 +23,11 @@ namespace RoguelikeDev.Entities.Player.EquipmentStates
 
         public ISpriteGamePadState HandleInput(Sprite player, GamePadCapabilities cap, GamePadState state)
         {
+            if (!IsFiring(state))
+                return new HoldingState();
+
             Vector2 thumbDir = state.ThumbSticks.Right;
             double rotation = Math.Atan2(thumbDir.X, thumbDir.Y);
-
-            if (!IsFiring(state))
-            {
-                return new HoldingState();
-            }
 
             Fire(rotation);
             return null;
@@ -42,10 +40,7 @@ namespace RoguelikeDev.Entities.Player.EquipmentStates
 
         public static bool IsFiring(GamePadState state)
         {
-            return (state.ThumbSticks.Right.X < -FireThreshold|| 
-                state.ThumbSticks.Right.X > FireThreshold || 
-                state.ThumbSticks.Right.Y < -FireThreshold|| 
-                state.ThumbSticks.Right.Y > FireThreshold);
+            return state.Buttons.RightShoulder == ButtonState.Pressed;
         }
 
         private void Fire(double rotation)

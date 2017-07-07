@@ -6,7 +6,7 @@ namespace RoguelikeDev.Entities.Player.EquipmentStates
     {
         public ISpriteGamePadState HandleInput(Sprite sprite, GamePadCapabilities cap, GamePadState state)
         {
-            if (cap.HasRightXThumbStick && ShootingState.IsFiring(state))
+            if (ShootingState.IsFiring(state))
             {
                 return new ShootingState(Player.EquippedWeapon);
             }
