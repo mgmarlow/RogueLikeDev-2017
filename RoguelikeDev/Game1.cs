@@ -25,8 +25,8 @@ namespace RoguelikeDev
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 1280;
-            _graphics.PreferredBackBufferHeight = 920;
+            //_graphics.PreferredBackBufferWidth = 1280;
+            //_graphics.PreferredBackBufferHeight = 920;
             Content.RootDirectory = "Content";
         }
 
@@ -38,7 +38,7 @@ namespace RoguelikeDev
         /// </summary>
         protected override void Initialize()
         {
-            var mapStrat = new RandomRoomsMapCreationStrategy<Map>(40, 40, 30, 18, 8);
+            var mapStrat = new RandomRoomsMapCreationStrategy<Map>(40, 40, 50, 20, 4);
 
             _dungeonMap = new DungeonMap(mapStrat);
             _camera = new Camera(GraphicsDevice.Viewport);

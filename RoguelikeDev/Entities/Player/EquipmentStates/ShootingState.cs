@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Input;
 using RoguelikeDev.Weapons;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,30 +23,15 @@ namespace RoguelikeDev.Entities.Player.EquipmentStates
 
         public ISpriteGamePadState HandleInput(Sprite player, GamePadCapabilities cap, GamePadState state)
         {
-            Vector2 fireVector;
+            Vector2 thumbDir = state.ThumbSticks.Right;
+            double rotation = Math.Atan2(thumbDir.X, thumbDir.Y);
 
-            if (state.ThumbSticks.Right.X < -FireThreshold)
-            {
-                fireVector = new Vector2(-1, 0);
-            }
-            else if (state.ThumbSticks.Right.X > FireThreshold)
-            {
-                fireVector = new Vector2(1, 0);
-            }
-            else if (state.ThumbSticks.Right.Y < -FireThreshold)
-            {
-                fireVector = new Vector2(0, -1);
-            }
-            else if (state.ThumbSticks.Right.Y > FireThreshold)
-            {
-                fireVector = new Vector2(0, 1);
-            }
-            else
+            if (!IsFiring(state))
             {
                 return new HoldingState();
             }
 
-            Fire(fireVector);
+            Fire(rotation);
             return null;
         }
 
@@ -54,7 +40,15 @@ namespace RoguelikeDev.Entities.Player.EquipmentStates
 
         }
 
-        private void Fire(Vector2 fireVector)
+        public static bool IsFiring(GamePadState state)
+        {
+            return (state.ThumbSticks.Right.X < -FireThreshold|| 
+                state.ThumbSticks.Right.X > FireThreshold || 
+                state.ThumbSticks.Right.Y < -FireThreshold|| 
+                state.ThumbSticks.Right.Y > FireThreshold);
+        }
+
+        private void Fire(double rotation)
         {
             // TODO: let loose bullet
         }

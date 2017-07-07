@@ -6,7 +6,7 @@ namespace RoguelikeDev.Entities.Player.EquipmentStates
     {
         public ISpriteGamePadState HandleInput(Sprite sprite, GamePadCapabilities cap, GamePadState state)
         {
-            if (cap.HasRightXThumbStick && IsFiring(state))
+            if (cap.HasRightXThumbStick && ShootingState.IsFiring(state))
             {
                 return new ShootingState(Player.EquippedWeapon);
             }
@@ -16,14 +16,6 @@ namespace RoguelikeDev.Entities.Player.EquipmentStates
         public void Update(Sprite sprite)
         {
 
-        }
-
-        private bool IsFiring(GamePadState state)
-        {
-            return (state.ThumbSticks.Right.X < -ShootingState.FireThreshold|| 
-                state.ThumbSticks.Right.X > ShootingState.FireThreshold || 
-                state.ThumbSticks.Right.Y < -ShootingState.FireThreshold|| 
-                state.ThumbSticks.Right.Y > ShootingState.FireThreshold);
         }
 
     }
