@@ -3,12 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 using RoguelikeDev.Entities;
 using RoguelikeDev.Services;
 using System.Diagnostics;
+using RoguelikeDev.Extensions;
 
 namespace RoguelikeDev.World
 {
     public class Camera : ICamera
     {
-        public Microsoft.Xna.Framework.Rectangle Bounds { get; set; }
+        public Rectangle Bounds { get; set; }
         public float Zoom { get; set; }
         public Vector2 Location { get; set; }
         public Vector2 Origin { get; set; }
@@ -43,17 +44,15 @@ namespace RoguelikeDev.World
             Location = MapToClampedPosition(newPos);
         }
 
-        public Microsoft.Xna.Framework.Rectangle GetBounds()
+        public Rectangle GetBounds()
         {
             return Bounds;
         }
 
         public void SetLocation(Vector2 newLoc)
         {
-            // TODO: set origin
-            //Origin = new Vector2(newLoc.X - Bounds.Width / 2, newLoc.Y - Bounds.Height / 2);
-            var clampedLocation = MapToClampedPosition(newLoc);
-            Location = clampedLocation;
+            var centeredLocation = new Vector2(-newLoc.X + Bounds.Width * 0.5f, -newLoc.Y + Bounds.Height * 0.5f);
+            Location = MapToClampedPosition(centeredLocation);
         }
 
         public void FollowSprite(Sprite sprite, Vector2 direction)
