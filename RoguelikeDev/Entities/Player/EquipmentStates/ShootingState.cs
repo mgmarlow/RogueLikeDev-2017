@@ -13,11 +13,11 @@ namespace RoguelikeDev.Entities.Player.EquipmentStates
     {
         public static float FireThreshold = 0.5f;
 
-        public Weapon EquipedWeapon { get; set; }
+        public Weapon ActiveWeapon { get; set; }
 
         public ShootingState(Weapon weapon)
         {
-            EquipedWeapon = weapon;
+            ActiveWeapon = weapon;
         }
 
         public ISpriteGamePadState HandleInput(Sprite player, GamePadCapabilities cap, GamePadState state)

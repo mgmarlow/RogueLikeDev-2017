@@ -6,6 +6,7 @@ using RoguelikeDev.Entities.Player.EquipmentStates;
 using RoguelikeDev.Entities.Player.PlayerStates;
 using RoguelikeDev.Extensions;
 using RoguelikeDev.Services;
+using RoguelikeDev.Weapons;
 using RoguelikeDev.World;
 
 namespace RoguelikeDev.Entities.Player
@@ -14,6 +15,8 @@ namespace RoguelikeDev.Entities.Player
     {
         private ISpriteGamePadState _state = new StandingState();
         private ISpriteGamePadState _equipment = new HoldingState();
+
+        public static Weapon EquippedWeapon { get; set; }
 
         public Player(Rectangle gameBounds) : base(gameBounds)
         {
