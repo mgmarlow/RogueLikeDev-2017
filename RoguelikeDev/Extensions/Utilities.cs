@@ -9,9 +9,9 @@ namespace RoguelikeDev.Extensions
 {
     public static class Utilities
     {
-        public static Vector2 Add(this Vector2 origin, Vector2 offset)
+        public static Vector2 AddScalar (this Vector2 origin, float offset)
         {
-            return new Vector2(origin.X + offset.X, origin.Y + offset.Y);
+            return new Vector2(origin.X + offset, origin.Y + offset);
         }
 
         public static Vector2 Halve(this Vector2 origin)

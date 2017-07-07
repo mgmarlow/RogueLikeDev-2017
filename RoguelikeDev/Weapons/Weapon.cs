@@ -8,7 +8,9 @@ namespace RoguelikeDev.Weapons
 {
     public class Weapon
     {
+        public List<Projectile> Ammunition { get; set; }
         public float BulletSpeed { get; set; }
+        public float BulletDecay { get; set; }
         public int ClipSize { get; set; } 
         public string AmmoType { get; set; }
     }
