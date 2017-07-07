@@ -2,9 +2,9 @@
 
 namespace RoguelikeDev.Entities.Player.PlayerStates
 {
-    public class StandingState : ISpriteGamepadState
+    public class StandingState : ISpriteGamePadState
     {
-        public ISpriteGamepadState HandleInput(Sprite player, GamePadCapabilities cap, GamePadState state)
+        public ISpriteGamePadState HandleInput(Sprite player, GamePadCapabilities cap, GamePadState state)
         {
             if (cap.HasLeftXThumbStick && IsRunning(state))
             {

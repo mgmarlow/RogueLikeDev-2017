@@ -5,7 +5,7 @@ using RoguelikeDev.World;
 
 namespace RoguelikeDev.Entities.Player.PlayerStates
 {
-    public class RunningState : ISpriteGamepadState
+    public class RunningState : ISpriteGamePadState
     {
         private float _playerSpeed = 7.0f;
         private IDungeonMap _dungeon;
@@ -17,7 +17,7 @@ namespace RoguelikeDev.Entities.Player.PlayerStates
             _dungeon = ServiceLocator<IDungeonMap>.GetService();
         }
 
-        public ISpriteGamepadState HandleInput(Sprite player, GamePadCapabilities cap, GamePadState state)
+        public ISpriteGamePadState HandleInput(Sprite player, GamePadCapabilities cap, GamePadState state)
         {
             ICamera camera = ServiceLocator<ICamera>.GetService();
             Vector2 newLocation, cameraVector;

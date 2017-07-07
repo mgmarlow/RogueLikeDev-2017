@@ -12,8 +12,8 @@ namespace RoguelikeDev.Entities.Player
 {
     public class Player : Sprite
     {
-        private ISpriteGamepadState _state = new StandingState();
-        private ISpriteGamepadState _equipment = new DefaultWeaponState();
+        private ISpriteGamePadState _state = new StandingState();
+        private ISpriteGamePadState _equipment = new HoldingState();
 
         public Player(Rectangle gameBounds) : base(gameBounds)
         {
@@ -49,7 +49,7 @@ namespace RoguelikeDev.Entities.Player
             _equipment.Update(this);
         }
 
-        private ISpriteGamepadState HandleStateInput(ISpriteGamepadState currentState, GamePadCapabilities cap, GamePadState gamepadState)
+        private ISpriteGamePadState HandleStateInput(ISpriteGamePadState currentState, GamePadCapabilities cap, GamePadState gamepadState)
         {
             var newState = currentState.HandleInput(this, cap, gamepadState);
             if (newState != null)

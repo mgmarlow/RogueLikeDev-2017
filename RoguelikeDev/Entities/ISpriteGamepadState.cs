@@ -2,9 +2,9 @@
 
 namespace RoguelikeDev.Entities
 {
-    public interface ISpriteGamepadState
+    public interface ISpriteGamePadState
     {
-        ISpriteGamepadState HandleInput(Sprite sprite, GamePadCapabilities cap, GamePadState state);
+        ISpriteGamePadState HandleInput(Sprite sprite, GamePadCapabilities cap, GamePadState state);
         void Update(Sprite sprite);
     }
 }
