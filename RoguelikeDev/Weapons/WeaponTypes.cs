@@ -8,6 +8,6 @@ namespace RoguelikeDev.Weapons
 {
     public class WeaponTypes
     {
-        public static Weapon Pistol = new Weapon(10, 20, "bullet");
+        public static Weapon Pistol = new Weapon(600f, 10, 20, "bullet");
     }
 }

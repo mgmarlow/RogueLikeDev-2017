@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using RoguelikeDev.Extensions;
 using RoguelikeDev.Services;
 using RoguelikeDev.World;
+using System.Diagnostics;
 
 namespace RoguelikeDev.Weapons
 {
@@ -20,7 +21,7 @@ namespace RoguelikeDev.Weapons
 
         public Weapon BaseWeapon { get; set; }
         public bool IsActive { get; set; }
-        public double Rotation { get; set; }
+        public float Rotation { get; set; }
 
         public Projectile(Weapon weapon)
         {
@@ -38,7 +39,13 @@ namespace RoguelikeDev.Weapons
 
         public override void Update(GameTime gameTime)
         {
-            Location = Location.AddScalar(_bulletSpeed);
+            var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            float dirX = (float)Math.Cos(Rotation);
+            float dirY = (float)Math.Sin(Rotation);
+            var velocity = new Vector2(_bulletSpeed * dirX * dt, _bulletSpeed * -dirY * dt);
+
+            Location += velocity;
 
             if (Expired())
                 IsActive = false;
@@ -49,7 +56,7 @@ namespace RoguelikeDev.Weapons
             base.Draw(spriteBatch);
         }
 
-        public Projectile SetActive(double rotation, Vector2 location)
+        public Projectile SetActive(float rotation, Vector2 location)
         {
             IsActive = true;
             Location = location;

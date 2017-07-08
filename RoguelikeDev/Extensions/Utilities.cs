@@ -18,5 +18,10 @@ namespace RoguelikeDev.Extensions
         {
             return new Vector2(origin.X * 0.5f, origin.Y * 0.5f);
         }
+
+        public static float Angle(this Vector2 origin)
+        {
+            return (float)Math.Atan2((double)origin.Y, (double)origin.X);
+        }
     }
 }

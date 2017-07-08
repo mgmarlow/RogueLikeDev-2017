@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using RoguelikeDev.Extensions;
 using RoguelikeDev.Weapons;
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,8 @@ namespace RoguelikeDev.Entities.Player.EquipmentStates
 
             if (_shootDelay <= 0)
             {
-                Vector2 thumbDir = state.ThumbSticks.Right;
-                double rotation = Math.Atan2(thumbDir.X, thumbDir.Y);
+                state = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
+                float rotation = state.ThumbSticks.Right.Angle();
 
                 GetNextBullet(rotation, player);
                 // TODO: Ammunition check
@@ -53,7 +54,7 @@ namespace RoguelikeDev.Entities.Player.EquipmentStates
             return state.Buttons.RightShoulder == ButtonState.Pressed;
         }
 
-        private Projectile GetNextBullet(double rotation, Sprite player)
+        private Projectile GetNextBullet(float rotation, Sprite player)
         {
             foreach (var bullet in ActiveWeapon.Ammunition)
             {
