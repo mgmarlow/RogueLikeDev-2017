@@ -15,14 +15,16 @@ namespace RoguelikeDev.Weapons
         public List<Projectile> Ammunition { get; set; }
         public float BulletSpeed { get; set; }
         public float BulletDecay { get; set; }
+        public float ShootDelay { get; set; }
         public int ClipSize { get; set; } 
         public string AmmoType { get; set; }
         public string TexturePath { get; set; }
 
-        public Weapon(int ammoSize, string texturePath)
+        public Weapon(int ammoSize, float shootDelay, string texturePath)
         {
             ClipSize = ammoSize;
             TexturePath = texturePath;
+            ShootDelay = shootDelay;
             BulletSpeed = 10f;
             BulletDecay = 10f;
         }

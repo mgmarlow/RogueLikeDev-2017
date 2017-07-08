@@ -8,13 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using RoguelikeDev.Extensions;
+using RoguelikeDev.Services;
+using RoguelikeDev.World;
 
 namespace RoguelikeDev.Weapons
 {
     public class Projectile : Sprite
     {
         private float _bulletSpeed;
-        //private float _distanceTravelled;
+        private IDungeonMap _dungeon;
 
         public Weapon BaseWeapon { get; set; }
         public bool IsActive { get; set; }
@@ -26,25 +28,20 @@ namespace RoguelikeDev.Weapons
             SpriteTexture = weapon.SpriteTexture;
             // Hold bullet speed internally so we can decrement it over time
             _bulletSpeed = weapon.BulletSpeed;
+            _dungeon = ServiceLocator<IDungeonMap>.GetService();
         }
 
+        // Texture loading handled by Weapon
         public override void Load(ContentManager content)
         {
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (_bulletSpeed > 0) {
-                Location = Location.AddScalar(_bulletSpeed);
-            }
-            else
-            {
-                // TODO: Remove bullet from bullet collection
-                //int bulletIndex = BaseWeapon.Ammunition.IndexOf(this);
-                //BaseWeapon.Ammunition[bulletIndex] = null;
-            }
-            // TODO: Bullet decay or max distance?
-            //_bulletSpeed -= BaseWeapon.BulletDecay;
+            Location = Location.AddScalar(_bulletSpeed);
+
+            if (Expired())
+                IsActive = false;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -58,6 +55,17 @@ namespace RoguelikeDev.Weapons
             Location = location;
             Rotation = rotation;
             return this;
+        }
+
+        public bool Expired()
+        {
+            var map = _dungeon.GetMap();
+            var tileSize = _dungeon.GetTileSize();
+
+            return (Location.X > map.Width * tileSize ||
+                Location.X < 0 ||
+                Location.Y > map.Height * tileSize ||
+                Location.Y < 0);
         }
     }
 }

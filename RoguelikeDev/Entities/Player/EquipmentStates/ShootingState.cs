@@ -12,8 +12,9 @@ namespace RoguelikeDev.Entities.Player.EquipmentStates
 {
     public class ShootingState : ISpriteGamePadState
     {
-        public static float FireThreshold = 0.5f;
+        private float _shootDelay = 0;
 
+        public static float FireThreshold = 0.5f;
         public Weapon ActiveWeapon { get; set; }
 
         public ShootingState(Weapon weapon)
@@ -26,20 +27,25 @@ namespace RoguelikeDev.Entities.Player.EquipmentStates
             if (!IsFiring(state))
                 return new HoldingState();
 
-            Vector2 thumbDir = state.ThumbSticks.Right;
-            double rotation = Math.Atan2(thumbDir.X, thumbDir.Y);
-
-            //Fire(rotation);
-            if (GetNextBullet(rotation, player) == null)
+            if (_shootDelay <= 0)
             {
-                // switch to pistol
+                Vector2 thumbDir = state.ThumbSticks.Right;
+                double rotation = Math.Atan2(thumbDir.X, thumbDir.Y);
+
+                GetNextBullet(rotation, player);
+                // TODO: Ammunition check
+                //if (GetNextBullet(rotation, player) == null)
+                //{
+                //    // switch to pistol
+                //}
+                _shootDelay = ActiveWeapon.ShootDelay;
             }
             return null;
         }
 
         public void Update(Sprite player)
         {
-
+            _shootDelay--;
         }
 
         public static bool IsFiring(GamePadState state)
