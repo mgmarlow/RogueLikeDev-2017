@@ -6,7 +6,7 @@ namespace RoguelikeDev.Entities
 {
     public interface IGameObject
     {
-        void Load(ContentManager content, GameWindow window);
+        void Load(ContentManager content);
         void Draw(SpriteBatch spriteBatch);
         void Update(GameTime gameTime);
     }

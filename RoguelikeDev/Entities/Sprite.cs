@@ -19,7 +19,7 @@ namespace RoguelikeDev.Entities
 
         ////////////////////////////////////
 
-        public abstract void Load(ContentManager content, GameWindow window);
+        public abstract void Load(ContentManager content);
 
         public abstract void Update(GameTime gameTime);
 

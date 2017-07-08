@@ -55,6 +55,7 @@
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="Weapons\Projectile.cs" />
     <Compile Include="Weapons\Weapon.cs" />
+    <Compile Include="Weapons\WeaponTypes.cs" />
     <Compile Include="World\Camera.cs" />
     <Compile Include="World\DungeonMap.cs" />
     <Compile Include="Program.cs" />

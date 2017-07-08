@@ -48,7 +48,8 @@ namespace RoguelikeDev
 
             _gameObjs = new List<IGameObject> {
                 _dungeonMap,
-                new Player()
+                new Player(),
+                Player.EquippedWeapon
             };
 
             base.Initialize();
@@ -65,7 +66,7 @@ namespace RoguelikeDev
 
             foreach (var obj in _gameObjs)
             {
-                obj.Load(Content, Window);
+                obj.Load(Content);
             }
         }
 

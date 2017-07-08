@@ -15,18 +15,21 @@ namespace RoguelikeDev.Entities.Player
     {
         private ISpriteGamePadState _state = new StandingState();
         private ISpriteGamePadState _equipment = new HoldingState();
+        private IDungeonMap _dungeon;
 
         public static Weapon EquippedWeapon { get; set; }
 
         public Player()
         {
+            _dungeon = ServiceLocator<IDungeonMap>.GetService();
+            EquippedWeapon = WeaponTypes.Pistol;
         }
 
-        public override void Load(ContentManager content, GameWindow window)
+        public override void Load(ContentManager content)
         {
             var playerTexture = content.Load<Texture2D>("avatar");
-            var dungeon = ServiceLocator<IDungeonMap>.GetService();
-            var initialPosition = dungeon.GetInitialPlayerPosition();
+            var initialPosition = _dungeon.GetInitialPlayerPosition();
+            //_dungeon.GetMap().ComputeFov((int)Location.X, (int)Location.Y, 10, true);
             base.LoadContent(playerTexture, initialPosition);
         }
 

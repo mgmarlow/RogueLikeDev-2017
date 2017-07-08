@@ -35,7 +35,7 @@ namespace RoguelikeDev.World
             return TileSize;
         }
 
-        public void Load(ContentManager content, GameWindow window)
+        public void Load(ContentManager content)
         {
             FloorTile = content.Load<Texture2D>("floor");
             WallTile = content.Load<Texture2D>("wall");
@@ -56,6 +56,7 @@ namespace RoguelikeDev.World
         {
             foreach (Cell cell in CurrentMap.GetAllCells())
             {
+                //if (!cell.IsInFov) continue;
                 Texture2D currentTile;
                 currentTile = cell.IsWalkable ? FloorTile : WallTile;
                 DrawTile(currentTile, cell, spriteBatch);

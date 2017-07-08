@@ -29,7 +29,11 @@ namespace RoguelikeDev.Entities.Player.EquipmentStates
             Vector2 thumbDir = state.ThumbSticks.Right;
             double rotation = Math.Atan2(thumbDir.X, thumbDir.Y);
 
-            Fire(rotation);
+            //Fire(rotation);
+            if (GetNextBullet(rotation, player) == null)
+            {
+                // switch to pistol
+            }
             return null;
         }
 
@@ -43,9 +47,17 @@ namespace RoguelikeDev.Entities.Player.EquipmentStates
             return state.Buttons.RightShoulder == ButtonState.Pressed;
         }
 
-        private void Fire(double rotation)
+        private Projectile GetNextBullet(double rotation, Sprite player)
         {
-            // TODO: let loose bullet
+            foreach (var bullet in ActiveWeapon.Ammunition)
+            {
+                // Get first inactive bullet and activate
+                if (bullet != null && !bullet.IsActive)
+                {
+                    return bullet.SetActive(rotation, player.Location);
+                }
+            }
+            return null;
         }
     }
 }
