@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using RoguelikeDev.Entities;
 using RogueSharp;
 using RogueSharp.MapCreation;
+using System.Diagnostics;
 
 namespace RoguelikeDev.World
 {
@@ -17,7 +18,7 @@ namespace RoguelikeDev.World
         public int TileSize { get; set; }
         public float TileScale { get; set; }
 
-        public DungeonMap(IMapCreationStrategy<Map> strategy, int tileSize=64, float tileScale=1)
+        public DungeonMap(IMapCreationStrategy<Map> strategy, int tileSize=64, float tileScale=1.0f)
         {
             Strategy = strategy;
             TileSize = tileSize;
@@ -33,6 +34,11 @@ namespace RoguelikeDev.World
         public int GetTileSize()
         {
             return TileSize;
+        }
+
+        public void UpdateFieldOfView(Sprite sprite)
+        {
+            CurrentMap.ComputeFov((int)sprite.Location.X / TileSize, (int)sprite.Location.Y / TileSize, 4, true);
         }
 
         public void Load(ContentManager content)
@@ -56,9 +62,8 @@ namespace RoguelikeDev.World
         {
             foreach (Cell cell in CurrentMap.GetAllCells())
             {
-                //if (!cell.IsInFov) continue;
-                Texture2D currentTile;
-                currentTile = cell.IsWalkable ? FloorTile : WallTile;
+                if (!cell.IsInFov) continue;
+                Texture2D currentTile = cell.IsWalkable ? FloorTile : WallTile;
                 DrawTile(currentTile, cell, spriteBatch);
             }
         }
@@ -66,7 +71,7 @@ namespace RoguelikeDev.World
         private void DrawTile(Texture2D texture, Cell cell, SpriteBatch spriteBatch)
         {
             var pos = new Vector2(cell.X * TileSize * TileScale, cell.Y * TileSize * TileScale);
-            spriteBatch.Draw(texture, pos, null, null, null, 0.0f, new Vector2(TileScale, TileScale), Color.White);
+            spriteBatch.Draw(texture, pos, null, null, null, 0.0f, new Vector2(TileScale, TileScale), Color.White, SpriteEffects.None, 0.8f);
         }
     }
 }

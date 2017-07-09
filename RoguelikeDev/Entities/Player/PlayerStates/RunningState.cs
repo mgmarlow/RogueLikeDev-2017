@@ -51,6 +51,7 @@ namespace RoguelikeDev.Entities.Player.PlayerStates
             {
                 player.Location = newLocation;
                 camera.FollowSprite(player, cameraVector);
+                _dungeon.UpdateFieldOfView(player);
             }
             return null;
         }

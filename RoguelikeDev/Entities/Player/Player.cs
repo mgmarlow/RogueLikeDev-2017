@@ -29,13 +29,14 @@ namespace RoguelikeDev.Entities.Player
         {
             var playerTexture = content.Load<Texture2D>("avatar");
             var initialPosition = _dungeon.GetInitialPlayerPosition();
-            //_dungeon.GetMap().ComputeFov((int)Location.X, (int)Location.Y, 10, true);
             base.LoadContent(playerTexture, initialPosition);
+            _dungeon.UpdateFieldOfView(this);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            //base.Draw(spriteBatch);
+            spriteBatch.Draw(SpriteTexture, Location, null, null, null, 0.0f, new Vector2(1, 1), Color.White, SpriteEffects.None, 0.5f);
         }
 
         public override void Update(GameTime gameTime)

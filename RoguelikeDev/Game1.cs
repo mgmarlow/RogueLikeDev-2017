@@ -25,8 +25,8 @@ namespace RoguelikeDev
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            //_graphics.PreferredBackBufferWidth = 1280;
-            //_graphics.PreferredBackBufferHeight = 920;
+            _graphics.PreferredBackBufferWidth = 960;
+            _graphics.PreferredBackBufferHeight = 580;
             Content.RootDirectory = "Content";
         }
 
@@ -103,9 +103,8 @@ namespace RoguelikeDev
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            _spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, _camera.TransformMatrix);
+            GraphicsDevice.Clear(Color.DimGray);
+            _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, _camera.TransformMatrix);
 
             foreach (var obj in _gameObjs)
             {

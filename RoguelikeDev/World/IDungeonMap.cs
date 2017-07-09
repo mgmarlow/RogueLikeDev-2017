@@ -1,4 +1,5 @@
-﻿using RogueSharp;
+﻿using RoguelikeDev.Entities;
+using RogueSharp;
 
 namespace RoguelikeDev.World
 {
@@ -6,5 +7,6 @@ namespace RoguelikeDev.World
     {
         IMap GetMap();
         int GetTileSize();
+        void UpdateFieldOfView(Sprite player);
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using RoguelikeDev.Extensions;
 using RoguelikeDev.Weapons;
+using RoguelikeDev.World;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
