@@ -49,13 +49,6 @@ namespace RoguelikeDev.World
 
         public void Update(GameTime gameTime)
         {
-#if DEBUG
-            KeyboardState state = Keyboard.GetState();
-            if (state.IsKeyDown(Keys.Space))
-            {
-                CurrentMap = Map.Create(Strategy);
-            }
-#endif
         }
 
         public void Draw(SpriteBatch spriteBatch)

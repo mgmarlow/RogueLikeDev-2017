@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RoguelikeDev.Entities;
+using RoguelikeDev.Entities.Enemies;
 using RoguelikeDev.Entities.Player;
 using RoguelikeDev.Services;
 using RoguelikeDev.World;
@@ -49,7 +50,8 @@ namespace RoguelikeDev
             _gameObjs = new List<IGameObject> {
                 _dungeonMap,
                 new Player(),
-                Player.EquippedWeapon
+                Player.EquippedWeapon,
+                new EnemySpawner(20)
             };
 
             base.Initialize();
