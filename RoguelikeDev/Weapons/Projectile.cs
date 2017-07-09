@@ -53,7 +53,10 @@ namespace RoguelikeDev.Weapons
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            var currentCell = _dungeon.GetMap().GetCell((int)Location.X / _dungeon.GetTileSize(), (int)Location.Y / _dungeon.GetTileSize());
+
+            if (currentCell.IsInFov)
+                base.Draw(spriteBatch);
         }
 
         public Projectile SetActive(float rotation, Vector2 location)

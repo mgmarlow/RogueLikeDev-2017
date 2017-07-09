@@ -63,8 +63,9 @@ namespace RoguelikeDev.Entities.Player.PlayerStates
 
         private bool WithinBounds(Sprite player, Vector2 newPosition)
         {
-            var centeredPosition = new Vector2(newPosition.X + player.SpriteTexture.Width * 0.5f, newPosition.Y + player.SpriteTexture.Height * 0.5f);
-            return NextCellIsWalkable(centeredPosition);
+            var topLeftPos = new Vector2(newPosition.X, newPosition.Y);
+            var bottomRightPos = new Vector2(newPosition.X + player.SpriteTexture.Width, newPosition.Y + player.SpriteTexture.Height);
+            return NextCellIsWalkable(topLeftPos) && NextCellIsWalkable(bottomRightPos);
         }
 
         private bool NextCellIsWalkable(Vector2 newPosition)
