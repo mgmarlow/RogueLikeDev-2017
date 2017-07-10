@@ -22,6 +22,7 @@ namespace RoguelikeDev
         List<IGameObject> _gameObjs;
         Camera _camera;
         DungeonMap _dungeonMap;
+        EnemySpawner _spawner;
 
         public Game1()
         {
@@ -41,17 +42,20 @@ namespace RoguelikeDev
         {
             var mapStrat = new RandomRoomsMapCreationStrategy<Map>(40, 40, 50, 20, 4);
 
-            _dungeonMap = new DungeonMap(mapStrat);
             _camera = new Camera(GraphicsDevice.Viewport);
-
             ServiceLocator<ICamera>.Provide(_camera);
+
+            _dungeonMap = new DungeonMap(mapStrat);
             ServiceLocator<IDungeonMap>.Provide(_dungeonMap);
+
+            _spawner = new EnemySpawner(20);
+            ServiceLocator<IEnemySpawner>.Provide(_spawner);
 
             _gameObjs = new List<IGameObject> {
                 _dungeonMap,
                 new Player(),
                 Player.EquippedWeapon,
-                new EnemySpawner(20)
+                _spawner
             };
 
             base.Initialize();

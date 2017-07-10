@@ -70,8 +70,8 @@ namespace RoguelikeDev.Entities.Player.PlayerStates
 
         private bool NextCellIsWalkable(Vector2 newPosition)
         {
-            var tileSize = _dungeon.GetTileSize();
-            var nextCell = _dungeon.GetMap().GetCell((int)newPosition.X / tileSize, (int)newPosition.Y / tileSize);
+            var tileSize = _dungeon.TileSize;
+            var nextCell = _dungeon.CurrentMap.GetCell((int)newPosition.X / tileSize, (int)newPosition.Y / tileSize);
             return nextCell.IsWalkable;
         }
     }

@@ -16,14 +16,12 @@ namespace RoguelikeDev.Entities.Enemies
     public class Enemy : Sprite
     {
         private IDungeonMap _dungeon;
-        private IMap _map;
 
         public bool IsActive { get; set; }
 
         public Enemy(Texture2D texture, Vector2 location)
         {
             _dungeon = ServiceLocator<IDungeonMap>.GetService();
-            _map = _dungeon.GetMap();
             SpriteTexture = texture;
             Location = location;
             IsActive = true;
@@ -35,7 +33,7 @@ namespace RoguelikeDev.Entities.Enemies
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (_map.IsInFov((int)Location.X / _dungeon.GetTileSize(), (int)Location.Y / _dungeon.GetTileSize()))
+            if (_dungeon.CurrentMap.IsInFov((int)Location.X / _dungeon.TileSize, (int)Location.Y / _dungeon.TileSize))
                 base.Draw(spriteBatch);
         }
 

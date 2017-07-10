@@ -11,7 +11,7 @@ namespace RoguelikeDev.World
 {
     public class DungeonMap : IGameObject, IDungeonMap
     {
-        public Map CurrentMap { get; set; }
+        public IMap CurrentMap { get; set; }
         public IMapCreationStrategy<Map> Strategy { get; set; }
         public Texture2D FloorTile { get; set; }
         public Texture2D WallTile { get; set; }
@@ -24,16 +24,6 @@ namespace RoguelikeDev.World
             TileSize = tileSize;
             TileScale = tileScale;
             CurrentMap = Map.Create(strategy);
-        }
-
-        public IMap GetMap()
-        {
-            return CurrentMap;
-        }
-
-        public int GetTileSize()
-        {
-            return TileSize;
         }
 
         public void UpdateFieldOfView(Sprite sprite)

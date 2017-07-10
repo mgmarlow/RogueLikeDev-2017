@@ -11,16 +11,17 @@ namespace RoguelikeDev.Extensions
         public static Vector2 GetInitialPlayerPosition(this IDungeonMap dungeon)
         {
             ICamera camera = ServiceLocator<ICamera>.GetService();
-            var map = dungeon.GetMap();
-            foreach (var cell in map.GetAllCells())
+
+            foreach (var cell in dungeon.CurrentMap.GetAllCells())
             {
                 if (cell.IsWalkable)
                 {
-                    Vector2 firstAvailableCell = new Vector2(cell.X * dungeon.GetTileSize(), cell.Y * dungeon.GetTileSize());
+                    Vector2 firstAvailableCell = new Vector2(cell.X * dungeon.TileSize, cell.Y * dungeon.TileSize);
                     camera.SetLocation(firstAvailableCell);
                     return firstAvailableCell;
                 }
             }
+
             throw new InvalidOperationException();
         }
     }

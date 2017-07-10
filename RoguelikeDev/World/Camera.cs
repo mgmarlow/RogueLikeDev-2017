@@ -64,15 +64,15 @@ namespace RoguelikeDev.World
         public bool WithinViewportBounds(Sprite sprite, Vector2 direction)
         {
             IDungeonMap dungeon = ServiceLocator<IDungeonMap>.GetService();
-            var map = dungeon.GetMap();
+            var map = dungeon.CurrentMap;
 
             // Upper-left
             var minXCheck = sprite.Location.X > (Bounds.Width * 0.5f) - (sprite.SpriteTexture.Width * 0.5f);
             var minYCheck = sprite.Location.Y > (Bounds.Height * 0.5f) - (sprite.SpriteTexture.Height * 0.5f);
 
             // Lower-right
-            var maxXCheck = sprite.Location.X < ((map.Width * dungeon.GetTileSize()) - (Bounds.Width * 0.5f) - (sprite.SpriteTexture.Width * 0.5f));
-            var maxYCheck = sprite.Location.Y < ((map.Height * dungeon.GetTileSize()) - (Bounds.Height * 0.5f) - (sprite.SpriteTexture.Height * 0.5f));
+            var maxXCheck = sprite.Location.X < ((map.Width * dungeon.TileSize) - (Bounds.Width * 0.5f) - (sprite.SpriteTexture.Width * 0.5f));
+            var maxYCheck = sprite.Location.Y < ((map.Height * dungeon.TileSize) - (Bounds.Height * 0.5f) - (sprite.SpriteTexture.Height * 0.5f));
 
             return ((minXCheck && maxXCheck) || direction.Y != 0.0f) && ((minYCheck && maxYCheck) || direction.X != 0.0f);
         }
@@ -86,11 +86,11 @@ namespace RoguelikeDev.World
         private Vector2 MapToClampedPosition(Vector2 position)
         {
             IDungeonMap dungeon = ServiceLocator<IDungeonMap>.GetService();
-            var map = dungeon.GetMap();
+            var map = dungeon.CurrentMap;
             var min = new Vector2(Origin.X, Origin.Y);
             var max = new Vector2(
-                (-1 * map.Width * dungeon.GetTileSize()) + Bounds.Width,
-                (-1 * map.Height * dungeon.GetTileSize()) + Bounds.Height
+                (-1 * map.Width * dungeon.TileSize) + Bounds.Width,
+                (-1 * map.Height * dungeon.TileSize) + Bounds.Height
             );
             return Vector2.Clamp(position, max, min);
         }

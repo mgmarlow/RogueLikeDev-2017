@@ -5,8 +5,8 @@ namespace RoguelikeDev.World
 {
     public interface IDungeonMap
     {
-        IMap GetMap();
-        int GetTileSize();
+        int TileSize { get; set; }
+        IMap CurrentMap { get; set; }
         void UpdateFieldOfView(Sprite player);
     }
 }

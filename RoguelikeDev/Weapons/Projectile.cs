@@ -11,6 +11,7 @@ using RoguelikeDev.Extensions;
 using RoguelikeDev.Services;
 using RoguelikeDev.World;
 using System.Diagnostics;
+using RoguelikeDev.Entities.Enemies;
 
 namespace RoguelikeDev.Weapons
 {
@@ -18,6 +19,7 @@ namespace RoguelikeDev.Weapons
     {
         private float _bulletSpeed;
         private IDungeonMap _dungeon;
+        private IEnemySpawner _spawner;
 
         public Weapon BaseWeapon { get; set; }
         public bool IsActive { get; set; }
@@ -30,6 +32,7 @@ namespace RoguelikeDev.Weapons
             // Hold bullet speed internally so we can decrement it over time
             _bulletSpeed = weapon.BulletSpeed;
             _dungeon = ServiceLocator<IDungeonMap>.GetService();
+            _spawner = ServiceLocator<IEnemySpawner>.GetService();
         }
 
         // Texture loading handled by Weapon
@@ -53,7 +56,7 @@ namespace RoguelikeDev.Weapons
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            var currentCell = _dungeon.GetMap().GetCell((int)Location.X / _dungeon.GetTileSize(), (int)Location.Y / _dungeon.GetTileSize());
+            var currentCell = _dungeon.CurrentMap.GetCell((int)Location.X / _dungeon.TileSize, (int)Location.Y / _dungeon.TileSize);
 
             if (currentCell.IsInFov)
                 base.Draw(spriteBatch);
@@ -69,13 +72,14 @@ namespace RoguelikeDev.Weapons
 
         public bool Expired()
         {
-            var map = _dungeon.GetMap();
-            var tileSize = _dungeon.GetTileSize();
+            var map = _dungeon.CurrentMap;
+            var tileSize = _dungeon.TileSize;
 
             return (Location.X > map.Width * tileSize ||
                 Location.X < 0 ||
                 Location.Y > map.Height * tileSize ||
                 Location.Y < 0);
         }
+
     }
 }

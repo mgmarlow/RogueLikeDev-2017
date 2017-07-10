@@ -60,8 +60,8 @@ namespace RoguelikeDev.Entities.Enemies
 
         public void SpawnEnemies(int n)
         {
-            var map = _dungeon.GetMap();
-            var tileSize = _dungeon.GetTileSize();
+            var map = _dungeon.CurrentMap;
+            var tileSize = _dungeon.TileSize;
             var random = new DotNetRandom();
 
             for (var i = 0; i < n; i++)
