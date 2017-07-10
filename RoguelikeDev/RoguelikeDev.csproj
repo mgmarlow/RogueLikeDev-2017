@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Entities\Enemies\Enemy.cs" />
     <Compile Include="Entities\Enemies\EnemySpawner.cs" />
+    <Compile Include="Entities\Enemies\IEnemySpawner.cs" />
     <Compile Include="Entities\IGameObject.cs" />
     <Compile Include="Entities\ISpriteGamePadState.cs" />
     <Compile Include="Entities\Player\EquipmentStates\HoldingState.cs" />

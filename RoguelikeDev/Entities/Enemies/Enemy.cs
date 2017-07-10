@@ -18,12 +18,15 @@ namespace RoguelikeDev.Entities.Enemies
         private IDungeonMap _dungeon;
         private IMap _map;
 
+        public bool IsActive { get; set; }
+
         public Enemy(Texture2D texture, Vector2 location)
         {
             _dungeon = ServiceLocator<IDungeonMap>.GetService();
             _map = _dungeon.GetMap();
             SpriteTexture = texture;
             Location = location;
+            IsActive = true;
         }
 
         public override void Load(ContentManager content)

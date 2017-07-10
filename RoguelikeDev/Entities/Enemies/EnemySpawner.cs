@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace RoguelikeDev.Entities.Enemies
 {
-    public class EnemySpawner : IGameObject
+    public class EnemySpawner : IGameObject, IEnemySpawner
     {
         private List<Enemy> _badDudes;
         private Texture2D _texture;
@@ -51,6 +51,13 @@ namespace RoguelikeDev.Entities.Enemies
             }
         }
 
+        public List<Vector2> GetActiveEnemyLocations()
+        {
+            return _badDudes
+                .Where(d => d.IsActive)
+                .Select(d => d.Location).ToList();
+        }
+
         public void SpawnEnemies(int n)
         {
             var map = _dungeon.GetMap();
@@ -61,7 +68,7 @@ namespace RoguelikeDev.Entities.Enemies
                 _badDudes.Add(SpawnNewEnemy(map, tileSize, random));
         }
 
-        public Enemy SpawnNewEnemy(IMap map, int tileSize, DotNetRandom random)
+        private Enemy SpawnNewEnemy(IMap map, int tileSize, DotNetRandom random)
         {
             while (true)
             {
